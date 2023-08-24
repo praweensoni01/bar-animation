@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar animation</title>
+</head>
+<style>
+    .progress{
+        position: relative;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        outline: 1px solid rgba(209, 197, 252, .5);
+        outline-offset: -1px;
+    }
+    .progress::after,.number{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+    .progress::after{
+        content: '';
+        width: 110px;
+        height: 110px;
+        border-radius: inherit;
+        outline: inherit;
+    }
+    .circle{
+        stroke-dasharray: 410;
+        stroke-dashoffset: 410;
+        transform: rotate(-90deg);
+        animation: bar-fill 8s linear forwards;
+    }
+    @keyframes bar-fill {
+        100%{
+            stroke-dashoffset: 0;
+        }
+    }
+</style>
+<body>
+    <div class="progress">
+        <span class="number" data-value="100"></span>
+        <svg heigth="150" width="150" class="circle">
+            <circle cx="75" cy="75" r="65" stroke="#d1c5fc" stroke-width="20" fill="none" />
+        </svg>
+    </div>
+</body>
+<script>
+    alert("working!");
+    let counter = 0;
+    setInterval(()=>{
+        const el = document.querySelector('.number');
+        const elvalue = Number(el.getAttribute('data-value'));
+        if(counter !==elvalue){
+            counter++;
+            el.innerHTML = `${counter}%`;
+        }
+    },80);
+</script>
+</html>
